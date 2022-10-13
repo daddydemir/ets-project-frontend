@@ -3,6 +3,10 @@ import { Flight } from 'src/app/models/flight';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlaneTicketService } from 'src/app/services/planeTicket.service';
 import { FlightDto } from 'src/app/models/flightDto';
+import { PlaneService } from 'src/app/services/plane.service';
+import { Plane } from 'src/app/models/plane';
+import { delay } from 'rxjs';
+import { ListResponseModel } from 'src/app/models/listResponseModel';
 
 @Component({
   selector: 'app-plane-ticket',
@@ -17,7 +21,8 @@ export class PlaneTicketComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private service: PlaneTicketService
+    private service: PlaneTicketService,
+    private planeSevice: PlaneService
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +39,20 @@ export class PlaneTicketComponent implements OnInit {
     });
   }
 
-  searchFlight(){
+  test = async() => {
+    const liste: Plane[] = [];
+
+    await this.planeSevice.getAll().then(item => {
+      liste.push(item?.data[0]!);
+      console.log(item?.data[0]!);
+    });
+
+
+    console.log("size :" + liste.length);
+  }
+
+  searchFlight = async() => { 
+    this.test();
     const flight: FlightDto = {};
     let data = Object.assign({}, this.planeTicketForm.value);
     if(data.seat === "business"){
@@ -59,7 +77,7 @@ export class PlaneTicketComponent implements OnInit {
       this.service.search(flight).subscribe(
         (response) => {
           console.log(response);
-          response.data.forEach(function (this:Flight, i: Flight) {
+          response.data?.forEach(function (i: Flight) {
             liste.push(i);
             console.log(i.expeditionNo);
           });
@@ -71,6 +89,22 @@ export class PlaneTicketComponent implements OnInit {
     }else{
       alert("Eksik alanları lütfen doldurun.");
     }
+
+    const planes: Plane[] = [];
+
+    await this.planeSevice.getAll().then(item => {
+      planes.push(item?.data[0]!);
+    });
+
+  
+
+    liste.forEach( function (item: Flight) {
+      for(let i=0; i< planes.length; i++){
+        if(planes[i].id === item.planeId){
+          item.plane = planes[i];
+        }
+      }
+    });
     this.array = liste;
   }
 
