@@ -1,0 +1,77 @@
+<p></p>
+
+<div class="container">
+    <h3> Uçak bileti bul</h3>
+
+    <form [formGroup]="planeTicketForm">
+        <div class="row">
+            <div class="col-md-2">
+                <label> From: </label>
+                <input type="text" class="form-control" formControlName="departurePoint">
+            </div>
+
+            <div class="col-md-2">
+                <label> To:</label>
+                <input type="text" class="form-control" formControlName="destination">
+            </div>
+            <div class="col-md-2">
+                <label> Date:</label>
+                <input type="date" class="form-control" formControlName="departureTime">
+            </div>
+            <div class="col-md-2">
+                <label> People:</label>
+                <input type="number" class="form-control" formControlName="people">
+            </div>
+
+            <div class="col-md-2">
+                <label> Seat Type</label>
+                <select class="form-control" formControlName="seat">
+                    <option value="any"> doesn't matter </option>
+                    <option value="business" > BUSINESS </option>
+                    <option value="economy" > ECONOMY </option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label style="visibility: hidden">;"> test</label>
+                <input type="submit" class="btn btn-primary form-control" value="SEARCH" (click)="searchFlight()">
+            </div>
+        </div>
+    </form>
+</div>
+<hr>
+<div class="container" *ngIf="array.length > 0">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            search olayı
+        </div>
+
+        <div class="col-md-9">
+            <ul>
+                <li *ngFor="let i of array" style="float:left; padding:10px; list-style:none;"> 
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ i.plane?.brandImage}}" alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title">{{i.departurePoint }} => {{i.destination}} </h5>
+                          <p class="card-text"> {{ i.plane?.brandName }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Business : <span style="color:green; font-weight:bold;"> {{ i.priceBusiness}} ₺</span> </li>
+                          <li class="list-group-item">Economy  :  <span style="color:green; font-weight: bold;"> {{ i.priceEconomy }} ₺ </span></li>
+                          <li class="list-group-item">expedition No  :  <span style="color:red; font-weight: bold;"> {{ i.expeditionNo }} </span> </li>
+                          <li class="list-group-item"> 
+                            {{ i.departureTime }}
+                            <!-- {{ i.departureTime?.getFullYear() }}/{{i.departureTime?.getMonth()}}/{{i.departureTime?.getDate()}} {{i.departureTime?.getHours()}}:{{i.departureTime?.getMinutes()}} -->
+                          </li>
+                        </ul>
+                        <div class="card-body">
+                          <a href="#" class="card-link btn btn-primary">BUY</a>
+                        </div>
+                      </div>    
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
