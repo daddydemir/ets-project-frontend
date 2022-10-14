@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FlightDetailComponent } from './components/flight-detail/flight-detail.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { OtelReservationComponent } from './components/otel-reservation/otel-reservation.component';
 import { PlaneTicketComponent } from './components/plane-ticket/plane-ticket.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ExpiredTokenGuard } from './guards/expired-token.guard';
 
 const routes: Routes = [
   {
@@ -31,6 +33,12 @@ const routes: Routes = [
     path: 'plane-ticket',
     pathMatch: 'full',
     component:PlaneTicketComponent
+  },
+  {
+    path:'flight/:id',
+    pathMatch: 'full',
+    component: FlightDetailComponent,
+    // canActivate: [ExpiredTokenGuard]
   }
 ];
 

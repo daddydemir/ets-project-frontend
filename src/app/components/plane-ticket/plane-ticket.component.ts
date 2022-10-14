@@ -5,8 +5,6 @@ import { PlaneTicketService } from 'src/app/services/planeTicket.service';
 import { FlightDto } from 'src/app/models/flightDto';
 import { PlaneService } from 'src/app/services/plane.service';
 import { Plane } from 'src/app/models/plane';
-import { delay } from 'rxjs';
-import { ListResponseModel } from 'src/app/models/listResponseModel';
 
 @Component({
   selector: 'app-plane-ticket',
@@ -39,20 +37,22 @@ export class PlaneTicketComponent implements OnInit {
     });
   }
 
-  test = async() => {
-    const liste: Plane[] = [];
-
-    await this.planeSevice.getAll().then(item => {
-      liste.push(item?.data[0]!);
-      console.log(item?.data[0]!);
-    });
-
-
-    console.log("size :" + liste.length);
+  test(){
+    const f: Flight = {};
+    f.id = 2;
+    f.departurePoint = 'konya';
+    f.destination = 'sivas';
+    f.departureTime = new Date();
+    
+    const p: Plane = {};
+    p.brandName = 'Türk hava yolları'
+    p.brandImage = 'https://www.turizmgunlugu.com/wp-content/uploads/2020/10/THY-Tu%CC%88rk-Hava-Yollari-Turkish-Airlines-696x398.jpg';
+    f.plane = p;
+    this.array.push(f);
   }
 
+
   searchFlight = async() => { 
-    this.test();
     const flight: FlightDto = {};
     let data = Object.assign({}, this.planeTicketForm.value);
     if(data.seat === "business"){
@@ -76,10 +76,8 @@ export class PlaneTicketComponent implements OnInit {
     if(this.planeTicketForm.valid){
       this.service.search(flight).subscribe(
         (response) => {
-          console.log(response);
           response.data?.forEach(function (i: Flight) {
             liste.push(i);
-            console.log(i.expeditionNo);
           });
         },
         (responseError) =>{
@@ -93,7 +91,11 @@ export class PlaneTicketComponent implements OnInit {
     const planes: Plane[] = [];
 
     await this.planeSevice.getAll().then(item => {
-      planes.push(item?.data[0]!);
+      item?.data.forEach(function (i:Plane) {
+        planes.push(i);
+        alert(i.brandName);
+      });
+      // planes.push(item?.data[0]!);
     });
 
   

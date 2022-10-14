@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { OtelReservationComponent } from './components/otel-reservation/otel-reservation.component';
 import { PlaneTicketComponent } from './components/plane-ticket/plane-ticket.component';
+import { FlightDetailComponent } from './components/flight-detail/flight-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PlaneTicketComponent } from './components/plane-ticket/plane-ticket.com
     RegisterComponent,
     HomeComponent,
     OtelReservationComponent,
-    PlaneTicketComponent
+    PlaneTicketComponent,
+    FlightDetailComponent
   ],
   imports: [
     BrowserModule,
