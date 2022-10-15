@@ -102,15 +102,14 @@ export class FlightDetailComponent implements OnInit {
           alert(response?.message);
         }
         console.log(response?.message);
-        alert(response?.message);
+        window.location.href = "/my-tickets";
       },
       error => {
         console.log(error.error);
         alert(error.error.message);
+        window.location.href = "/login";
       }
     );
-
-    window.location.href = "/my-tickets";
   }
 
 

@@ -1,0 +1,77 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<div class="event-schedule-area-two bg-color pad100">
+    <div class="container">
+        
+        <h2> My Tickets </h2>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12" *ngIf="myTickets.length > 0">
+                
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade active show" id="home" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" scope="col">Date</th>
+                                        <th scope="col">Company</th>
+                                        <th scope="col">Person</th>
+                                        <th scope="col">Expedition</th>
+                                        <th scope="col"> Seat</th>
+                                        <th class="text-center" scope="col">Cancel</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let ticket of myTickets">
+                                    <tr class="inner-box">
+                                        <th scope="row">
+                                            <div class="event-date">
+                                                <span>16</span>
+                                                <p>Novembar</p>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <div class="event-img">
+                                                <img src="{{ ticket.flight?.plane?.brandImage }}" alt="" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="event-wrap">
+                                                <h3><a> {{ ticket.person?.name }} {{ ticket.person?.surname }}</a></h3>
+                                                <div class="meta">
+                                                    <div class="organizers">
+                                                        <a > {{ ticket.person?.identityNo }} </a>
+                                                    </div>
+                                                    <div class="time">
+                                                        <span> {{ ticket.person?.email }} </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="r-no">
+                                                <span> {{ ticket.flight?.expeditionNo }} </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="r-no">
+                                                <span> {{ ticket.seat }} </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="primary-btn">
+                                                <a class="btn btn-danger"> CANCEL </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /col end-->
+        </div>
+        <!-- /row end-->
+    </div>
+</div>
