@@ -18,6 +18,10 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
+    let id: string = localStorage.getItem('customerId') || "0";
+    if(id != "0"){
+      window.location.href = "/";
+    }
     this.createLoginForm();
   }
 

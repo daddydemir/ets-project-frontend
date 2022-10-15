@@ -15,5 +15,25 @@
                 </li>
             </ul>
         </div>
+        <div *ngIf="isAuth; else content" class="row">
+            <div class="flex-shrink-0">
+                <img src="{{ customer.profileImage}}" alt="Generic placeholder image"
+                    class="img-fluid rounded-circle border border-dark border-3" style="width: 70px;">
+            </div>
+        </div>
+        <ng-template #content>
+            <div style="display: flex; justify-content: space-between;" class="col-md-1">
+                <a href="login">
+                    <button type="button" class="btn btn-outline-info waves-effect px-3">
+                        <i class="bi bi-box-arrow-in-left"></i>
+                    </button>
+                </a>
+                <a href="register">
+                    <button type="button" class="btn btn-outline-warning waves-effect px-3">
+                        <i class="bi bi-person-plus"></i>
+                    </button>
+                </a>
+            </div>
+        </ng-template>
     </nav>
 </div>

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { LoginDto } from './../models/login';
 import { Observable } from 'rxjs';
 import { RegisterDto } from '../models/register';
+import { SingleResponseModel } from '../models/singleResponseModel';
+import { Customer } from '../models/customer';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +38,11 @@ export class AuthService {
     }else{
       return false;
     }
+  }
+
+  getCustomerById(id: string){
+
+    return this.httpClient.get<SingleResponseModel<Customer>>("http://localhost:8080/api/customers/"+id).toPromise();
   }
 
 }
