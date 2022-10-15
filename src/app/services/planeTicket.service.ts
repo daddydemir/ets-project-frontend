@@ -72,18 +72,31 @@ export class PlaneTicketService {
     return this.httpClient.get<ListResponseModel<Ticket>>(this.getbycustomerid + id, httpOptions).toPromise();;
   }
 
-  getPersons(){
+  getPersons() {
     return this.httpClient.get<ListResponseModel<People>>("http://localhost:8080/api/persons").toPromise();
   }
 
-  getFlights(){
+  getFlights() {
     return this.httpClient.get<ListResponseModel<Flight>>("http://localhost:8080/api/flights").toPromise();
   }
 
-  getPlanes(){
+  getPlanes() {
     return this.httpClient.get<ListResponseModel<Plane>>("http://localhost:8080/api/planes").toPromise();
   }
 
-  deleteTicket() { }
+  deleteTicket(id: number) {
+    const token: string = localStorage.getItem('token') || "";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.httpClient.delete<ResponseModel>(
+      "http://localhost:8080/api/tickets/"+id,
+      httpOptions
+      ).toPromise();
+  }
 
 }

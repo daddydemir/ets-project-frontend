@@ -84,6 +84,7 @@ export class MyTicketsComponent implements OnInit {
     for(var i=0; i<this.flights.length; i++){
       for(var k=0; k<this.planes.length; k++){
         if(this.flights[i].planeId == this.planes[k].id){
+          
           this.flights[i].plane = this.planes[k];
           // uçak ve uçuş arasındaki yapı kuruldu...
         }
@@ -97,6 +98,21 @@ export class MyTicketsComponent implements OnInit {
           // ticket'a uçak ve uçuş aktarıldı...
         }
       }
+    }
+  }
+
+  delete(id: number){
+    var r = confirm("Bileti iptal etmek istediğinizden emin misiniz?");
+    if(r == true){
+      this.service.deleteTicket(id).then(
+        item => {
+          alert(item?.message);
+          window.location.reload();
+        }
+      );
+    }else{
+      // nothing ...
+      // aklımı avla, bir gafil kuş gibi mermiye değsin ...
     }
   }
 

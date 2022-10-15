@@ -26,8 +26,8 @@
                                     <tr class="inner-box">
                                         <th scope="row">
                                             <div class="event-date">
-                                                <span>16</span>
-                                                <p>Novembar</p>
+                                                <span> {{ ticket.flight?.departureTime | date }} </span>
+                                                <p> {{ ticket.flight?.departureTime | date : "hh:mm"}}</p>
                                             </div>
                                         </th>
                                         <td>
@@ -60,7 +60,7 @@
                                         </td>
                                         <td>
                                             <div class="primary-btn">
-                                                <a class="btn btn-danger"> CANCEL </a>
+                                                <a class="btn btn-danger" (click)="delete(ticket.id!)"> CANCEL </a>
                                             </div>
                                         </td>
                                     </tr>

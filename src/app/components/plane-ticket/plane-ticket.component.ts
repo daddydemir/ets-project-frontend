@@ -93,7 +93,6 @@ export class PlaneTicketComponent implements OnInit {
     await this.planeSevice.getAll().then(item => {
       item?.data.forEach(function (i:Plane) {
         planes.push(i);
-        alert(i.brandName);
       });
       // planes.push(item?.data[0]!);
     });
