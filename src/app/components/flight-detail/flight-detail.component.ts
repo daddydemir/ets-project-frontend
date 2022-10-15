@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { tick } from '@angular/core/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Flight } from 'src/app/models/flight';
 import { People } from 'src/app/models/people';
 import { Plane } from 'src/app/models/plane';
+import { Ticket } from 'src/app/models/ticket';
 import { PlaneTicketService } from 'src/app/services/planeTicket.service';
 
 @Component({
@@ -13,7 +15,7 @@ import { PlaneTicketService } from 'src/app/services/planeTicket.service';
 })
 export class FlightDetailComponent implements OnInit {
 
-  id?:string;
+  id?: string;
   ucus?: Flight;
   personFrom!: FormGroup;
 
@@ -27,49 +29,53 @@ export class FlightDetailComponent implements OnInit {
 
     let f: Flight = {};
     let p: Plane = {};
-    
-    this.activatedRoute.params.subscribe( (params => {
+
+    this.activatedRoute.params.subscribe((params => {
       this.id = params['id'];
       // id'yi aldık.
     }));
+    this.createFrom();
+    this.mtd();
+  }
 
+  mtd = async () => {
 
-    this.service.getFlightById(this.id!).then(
+    await this.service.getFlightById(this.id!).then(
       response => {
-        if(response?.success){
+        if (response?.success) {
           // veri geldi.
           this.ucus = response.data;
-          f = response.data;
-        }else{
+          // f = response.data;
+        } else {
           alert("uçuş bulunamadı.");
         }
       }
     );
 
-    //planeId değeri değişecek
-    this.service.getPlaneById("1").then(
-      item => {
-       if(item?.success){
-        p = item.data;
-        f.plane = p;
-        this.ucus = f;
-       }
+    let pid: string | null = "";
+    pid = this.ucus?.planeId + "";
+
+    await this.service.getPlaneById(pid).then(
+      response => {
+        if (this.ucus != null) {
+          this.ucus.plane = response?.data;
+        }
       }
-    );
-    this.createFrom();
+    )
   }
 
-  createFrom(){
+  createFrom() {
     this.personFrom = this.formBuilder.group({
       "name": ['', [Validators.required]],
       "surname": ['', [Validators.required]],
       "identity": ['', [Validators.required]],
       "email": ['', [Validators.required]],
       "gender": ['', [Validators.required]],
+      "seat": ['', [Validators.required]],
     });
   }
 
-  buy = async () => { 
+  buy = async () => {
 
     const p: People = {};
 
@@ -80,15 +86,19 @@ export class FlightDetailComponent implements OnInit {
     p.identityNo = data.identity;
     p.gender = data.gender;
 
-    p.customerId = 3;
-    
+    let ticket: Ticket = {};
 
-    await this.service.takeTicket(p).then(
+    ticket.person = p;
+    ticket.flightId = this.ucus?.id;
+    ticket.customerId = Number(localStorage.getItem("customerId"));
+    ticket.seat = data.seat;
+
+    await this.service.takeTicket(ticket).then(
       response => {
-        if(response?.success) {
+        if (response?.success) {
 
         }
-        else{
+        else {
           alert(response?.message);
         }
         console.log(response?.message);
@@ -99,6 +109,8 @@ export class FlightDetailComponent implements OnInit {
         alert(error.error.message);
       }
     );
+
+    window.location.href = "/my-tickets";
   }
 
 

@@ -8,6 +8,7 @@ import { ResponseModel } from '../models/responseModel';
 import { People } from '../models/people';
 import { SingleResponseModel } from '../models/singleResponseModel';
 import { Plane } from '../models/plane';
+import { Ticket } from '../models/ticket';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ import { Plane } from '../models/plane';
 export class PlaneTicketService {
 
     listForSearch = "http://localhost:8080/api/flights/search";
-    take = "http://localhost:8080/api/ticket";
+    take = "http://localhost:8080/api/ticket"; // satın alma
     flightId = "http://localhost:8080/api/flights/";
     planeId = "http://localhost:8080/api/planes/";
 
@@ -38,19 +39,9 @@ export class PlaneTicketService {
     return this.httpClient.get<SingleResponseModel<Plane>>(this.planeId+id).toPromise();
   }
 
-  takeTicket(people: People){
+  takeTicket(ticket: Ticket){
 
     const token: string = localStorage.getItem('token') || "";
-
-    alert(token);
-
-    // const httpOptions : Object = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer ' + token
-    //   }),
-    //   responseType: 'text'
-    // };
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -59,11 +50,9 @@ export class PlaneTicketService {
       })
     };
 
-    const h = new HttpHeaders().set("","");
-
     return this.httpClient.post<ResponseModel>(
       this.take,
-      people,
+      ticket,
       httpOptions
       
     ).toPromise();
