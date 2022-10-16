@@ -1,14 +1,74 @@
-<p></p>
+<p style="display: hidden;"> .</p>
 <div class="container">
     <h3> Rezervasyon yap </h3>
-    <div class="row">
-        <div class="col-md-3">
-            <label for=""> From:</label>
-            <input type="text" class="form-control">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-md-2">
+                <label> Going To:</label>
+                <input type="text" class="form-control" formControlName="city">
+            </div>
+
+            <div class="col-md-2">
+                <label> Depatrure Date:</label>
+                <input type="date" class="form-control" formControlName="startDate">
+            </div>
+            <div class="col-md-2">
+                <label> Arrival Date:</label>
+                <input type="date" class="form-control" formControlName="endDate">
+            </div>
+            <div class="col-md-2">
+                <label> Adult:</label>
+                <input type="number" class="form-control" value="0" formControlName="adult">
+            </div>
+            <div class="col-md-2">
+                <label> Child:</label>
+                <input type="number" class="form-control" value="0" formControlName="child">
+            </div>
+            <div class="col-md-2">
+                <label style="visibility: hidden;"> .</label>
+                <input type="submit" class="form-control btn btn-primary" value="SEARCH" (click)="test()">
+            </div>
         </div>
+    </form>
+</div>
+<hr>
+<div class="container">
+    <div class="row" *ngIf="array.length > 0">
         <div class="col-md-3">
-            <label for=""> To:</label>
-            <input type="text" class="form-control">
+            filter component...
+        </div>
+        <div class="col-md-9">
+            <article>
+                <div class="cards-1">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let item of array">
+                                <div class="card card-blog">
+                                    <div class="card-image">
+                                        <a> <img class="img" src="{{ item.hotel?.image}}">
+                                            <div class="card-caption">
+                                                {{ item.price}} ₺
+                                            </div>
+                                        </a>
+                                        <div class="ripple-cont" style="text-align:center; font-weight:bold;">
+                                            {{ item.hotel?.phone }}
+                                        </div>
+                                    </div>
+                                    <div class="table">
+                                        <h5 class="category text-info"> {{item.hotel?.name }}</h5>
+                                        <p class="card-description">
+                                            {{ item.hotel?.information}}
+                                        </p>
+                                    </div>
+                                    <a href="#" class="btn btn-primary card-link" style="margin: 10px; color:white;" routerLink="/hotels/{{item.hotel?.id}}">
+                                        BUY
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
         </div>
     </div>
 </div>

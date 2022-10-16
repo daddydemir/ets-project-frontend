@@ -4,6 +4,7 @@ import { FlightDetailComponent } from './components/flight-detail/flight-detail.
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
+import { OtelDetailComponent } from './components/otel-detail/otel-detail.component';
 import { OtelReservationComponent } from './components/otel-reservation/otel-reservation.component';
 import { PlaneTicketComponent } from './components/plane-ticket/plane-ticket.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -43,6 +44,11 @@ const routes: Routes = [
     path: 'my-tickets',
     pathMatch: 'full',
     component: MyTicketsComponent
+  },
+  {
+    path: 'hotels/:id',
+    pathMatch: 'full',
+    component: OtelDetailComponent,
   }
 ];
 

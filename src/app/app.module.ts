@@ -13,6 +13,7 @@ import { OtelReservationComponent } from './components/otel-reservation/otel-res
 import { PlaneTicketComponent } from './components/plane-ticket/plane-ticket.component';
 import { FlightDetailComponent } from './components/flight-detail/flight-detail.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
+import { OtelDetailComponent } from './components/otel-detail/otel-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MyTicketsComponent } from './components/my-tickets/my-tickets.component
     OtelReservationComponent,
     PlaneTicketComponent,
     FlightDetailComponent,
-    MyTicketsComponent
+    MyTicketsComponent,
+    OtelDetailComponent
   ],
   imports: [
     BrowserModule,
