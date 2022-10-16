@@ -14,6 +14,7 @@ import { PlaneTicketComponent } from './components/plane-ticket/plane-ticket.com
 import { FlightDetailComponent } from './components/flight-detail/flight-detail.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
 import { OtelDetailComponent } from './components/otel-detail/otel-detail.component';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { OtelDetailComponent } from './components/otel-detail/otel-detail.compon
     PlaneTicketComponent,
     FlightDetailComponent,
     MyTicketsComponent,
-    OtelDetailComponent
+    OtelDetailComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import { OtelDetailComponent } from './components/otel-detail/otel-detail.compon
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

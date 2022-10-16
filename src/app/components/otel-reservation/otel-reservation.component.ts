@@ -80,12 +80,6 @@ export class OtelReservationComponent implements OnInit {
     };
     this.array.push(this.res);
     this.array.push(this.res);
-    this.array.push(this.res);
-    this.array.push(this.res);
-    this.array.push(this.res);
-    this.array.push(this.res);
-    this.array.push(this.res);
-    this.array.push(this.res);
   }
 
 }

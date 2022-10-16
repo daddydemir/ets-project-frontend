@@ -8,6 +8,7 @@ import { OtelDetailComponent } from './components/otel-detail/otel-detail.compon
 import { OtelReservationComponent } from './components/otel-reservation/otel-reservation.component';
 import { PlaneTicketComponent } from './components/plane-ticket/plane-ticket.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TestComponent } from './components/test/test.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
     path: 'hotels/:id',
     pathMatch: 'full',
     component: OtelDetailComponent,
+  },
+  {
+    path: 'test',
+    pathMatch: 'full',
+    component: TestComponent,
   }
 ];
 
