@@ -5,6 +5,8 @@ import { Address } from 'src/app/models/address';
 import { Hotel } from 'src/app/models/hotel';
 import { People } from 'src/app/models/people';
 import { Reservation } from 'src/app/models/reservation';
+import { ReservationAdd } from 'src/app/models/reservationAdd';
+import { Room } from 'src/app/models/room';
 import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
@@ -14,15 +16,8 @@ import { ReservationService } from 'src/app/services/reservation.service';
 })
 export class OtelDetailComponent implements OnInit {
 
-  id?: string;
-  res: Reservation = {
-    hotelId: 1,
-    id: 0,
-    customerId: 0,
-    startDate: new Date,
-    endDate: new Date,
-    price: 0
-  };
+  id?: number;
+  hotel?: Hotel;
 
   form!: FormGroup;
 
@@ -45,37 +40,20 @@ export class OtelDetailComponent implements OnInit {
       persons: this.formBuilder.array([this.personForm()]),
     });
 
-    this.test();
+    this.init();
   }
 
-  test(){
-    const address: Address = {
-      id:1,
-      title: "Sivas Otel Adresi",
-      city: "Sivas",
-      description: "Sivas-Ankara çevre yolu üzerinde..."
-    };
-
-    const hotel: Hotel = {
-      address: address,
-      id: 12,
-      name: "Kangal Hotel",
-      starSize: 4,
-      image: "https://ucdn.tatilbudur.net/Otel/486x290/malia-hotel_283021.jpg",
-      information: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      phone: "0545 440 7760"
-    };
-
-    this.res = {
-      customerId: 3,
-      hotel: hotel,
-      id: 41,
-      price: 400,
-      startDate: new Date("10-10-2022"),
-      endDate: new Date("30-10-2022"),
-      hotelId: 17
-    };
-  }
+  init = async () => {
+    await this.service.getOtelsId(this.id || 1).then(
+      item => {
+        if(item?.success){
+          this.hotel = item.data;
+          let r: Room[] = item.data.room || [];
+          this.hotel.oda = r[0];
+        }
+      }
+    );
+  } 
 
   personForm(){
     return this.formBuilder.group({
@@ -104,7 +82,12 @@ export class OtelDetailComponent implements OnInit {
   send(){
     console.log(this.form.value);
 
-    this.service.search(new Object).then(
+    const model: ReservationAdd = Object.assign({}, this.form.value);
+
+    model.customerId = Number(localStorage.getItem('customerId'));
+    model.hotelId = this.id || -1;
+    
+    this.service.search(model).then(
       item => {
         console.log(item?.data);
       }

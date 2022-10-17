@@ -1,14 +1,14 @@
 <div class="container">
-    <h4> {{ res.hotel?.name }} </h4>
+    <h4> {{ hotel?.name }} </h4>
     <hr>
     <div class="row">
         <div class="col-md-3">
-            <img class="imgimg-thumbnail img-fluid" src="{{res.hotel?.image}}">
+            <img class="imgimg-thumbnail img-fluid" src="{{hotel?.image}}">
             <hr>
-            <h4> {{ res.hotel?.starSize }} </h4>
-            <h5> {{ res?.price! * personSize }} ₺</h5>
+            <h4> {{ hotel?.starSize }} </h4>
+            <h5> {{ hotel?.oda?.price! * personSize }} ₺</h5>
             <p>
-                {{ res.hotel?.information }}
+                {{ hotel?.information }}
             </p>
         </div>
 
