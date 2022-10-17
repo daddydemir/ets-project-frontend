@@ -26,14 +26,14 @@
             </div>
             <div class="col-md-2">
                 <label style="visibility: hidden;"> .</label>
-                <input type="submit" class="form-control btn btn-primary" value="SEARCH" (click)="test()">
+                <input type="submit" class="form-control btn btn-primary" value="SEARCH" (click)="search()">
             </div>
         </div>
     </form>
 </div>
 <hr>
 <div class="container">
-    <div class="row" *ngIf="array.length > 0">
+    <div class="row" *ngIf="otel.length > 0">
         <div class="col-md-3">
             filter component...
         </div>
@@ -42,25 +42,25 @@
                 <div class="cards-1">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-4" *ngFor="let item of array">
+                            <div class="col-md-4" *ngFor="let item of otel">
                                 <div class="card card-blog">
                                     <div class="card-image">
-                                        <a> <img class="img" src="{{ item.hotel?.image}}">
+                                        <a> <img class="img" src="{{ item.image}}">
                                             <div class="card-caption">
-                                                {{ item.price}} ₺
+                                                {{ item.oda?.price! * day}} ₺
                                             </div>
                                         </a>
                                         <div class="ripple-cont" style="text-align:center; font-weight:bold;">
-                                            {{ item.hotel?.phone }}
+                                            {{ item.phone }}
                                         </div>
                                     </div>
                                     <div class="table">
-                                        <h5 class="category text-info"> {{item.hotel?.name }}</h5>
+                                        <h5 class="category text-info"> {{item.name }}</h5>
                                         <p class="card-description">
-                                            {{ item.hotel?.information}}
+                                            {{ item.information}}
                                         </p>
                                     </div>
-                                    <a href="#" class="btn btn-primary card-link" style="margin: 10px; color:white;" routerLink="/hotels/{{item.hotel?.id}}">
+                                    <a href="#" class="btn btn-primary card-link" style="margin: 10px; color:white;" routerLink="/hotels/{{item.id}}">
                                         BUY
                                     </a>
                                 </div>

@@ -1,4 +1,5 @@
 import { Address } from "./address";
+import { Room } from "./room";
 
 export interface Hotel{
     id?: number;
@@ -10,4 +11,6 @@ export interface Hotel{
     information?:string;
 
     address?:Address;
+    room?: Room[];
+    oda?: Room;
 }

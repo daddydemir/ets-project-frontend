@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Address } from 'src/app/models/address';
 import { Hotel } from 'src/app/models/hotel';
 import { Reservation } from 'src/app/models/reservation';
+import { ReservationDto } from 'src/app/models/reservationDto';
+import { Room } from 'src/app/models/room';
 import { ReservationService } from 'src/app/services/reservation.service';
 
 
@@ -14,8 +16,9 @@ import { ReservationService } from 'src/app/services/reservation.service';
 export class OtelReservationComponent implements OnInit {
 
   form!: FormGroup;
-  array: Reservation[] = [];
-  res: Reservation = {};
+  otel: Hotel[] = [];
+
+  day: number = 0;
 
 
   constructor(
@@ -24,62 +27,57 @@ export class OtelReservationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  this._createForm();
+    this._createForm();
   }
 
-  _createForm(){
+  _createForm() {
     this.form = this.formBuilder.group({
       "city": ['', [Validators.required]],
-      "startDate": ['' , [Validators.required]],
-      "endDate": ['' , [Validators.required]],
-      "adult": ['' , [Validators.required]],
-      "child": ['' , [Validators.required]],
+      "startDate": ['', [Validators.required]],
+      "endDate": ['', [Validators.required]],
+      "adult": ['', [Validators.required]],
+      "child": ['', [Validators.required]],
     });
   }
 
   search = async () => {
+
     
+
     let model = Object.assign({}, this.form.value);
+    let s: Date = new Date(this.form.value["startDate"]);
+    let d: Date = new Date(this.form.value["endDate"]);
+      
 
     await this.service.search(model).then(
       item => {
-        if(item?.success){
-          console.log(item.data);
+        if (!item?.success) {
+          alert("Aradığınız kriterde otel bulunamadı.");
+        } else {
+          item.data.forEach(
+            i => {
+              let r: Room[] = [];
+              r = i.room || [];
+              i.oda = r[0];
+
+              this.otel.push(i);
+            }
+          );
         }
       }
-    );
+    ); 
+    this.day = d.getDate()-s.getDate();
   }
 
-  test () {
-    
-    const address: Address = {
-      id:1,
-      title: "Sivas Otel Adresi",
-      city: "Sivas",
-      description: "Sivas-Ankara çevre yolu üzerinde..."
-    };
-
-    const hotel: Hotel = {
-      address: address,
-      id: 12,
-      name: "Kangal Hotel",
-      starSize: 4,
-      image: "https://ucdn.tatilbudur.net/Otel/486x290/malia-hotel_283021.jpg",
-      information: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      phone: "0545 440 7760"
-    };
-
-    this.res = {
-      customerId: 3,
-      hotel: hotel,
-      id: 41,
-      price: 400,
-      startDate: new Date("10-10-2022"),
-      endDate: new Date("30-10-2022"),
-      hotelId: 17
-    };
-    this.array.push(this.res);
-    this.array.push(this.res);
-  }
-
+  // getOtel = async (id: number) => {
+  //   await this.service.getOtelsId(id).then(
+  //     item => {
+  //       // console.log(item?.data);
+  //       if(item?.success){
+  //         // console.log("data gitti");
+  //         this.otel.push(item.data);
+  //       }
+  //     }
+  //   );
+  // }
 }

@@ -15,7 +15,14 @@ import { ReservationService } from 'src/app/services/reservation.service';
 export class OtelDetailComponent implements OnInit {
 
   id?: string;
-  res: Reservation = {};
+  res: Reservation = {
+    hotelId: 1,
+    id: 0,
+    customerId: 0,
+    startDate: new Date,
+    endDate: new Date,
+    price: 0
+  };
 
   form!: FormGroup;
 
