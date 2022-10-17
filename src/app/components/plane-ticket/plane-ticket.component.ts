@@ -16,6 +16,8 @@ export class PlaneTicketComponent implements OnInit {
 
   array: Flight[] = [];
 
+  liste: string[] = ["Ankara","Antalya","Anıtkabir","Aksaray","Anamur"];
+
 
   constructor(
     private formBuilder: FormBuilder,

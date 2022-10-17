@@ -16,6 +16,10 @@ import { MyTicketsComponent } from './components/my-tickets/my-tickets.component
 import { OtelDetailComponent } from './components/otel-detail/otel-detail.component';
 import { TestComponent } from './components/test/test.component';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +31,7 @@ import { TestComponent } from './components/test/test.component';
     FlightDetailComponent,
     MyTicketsComponent,
     OtelDetailComponent,
-    TestComponent
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,8 +39,14 @@ import { TestComponent } from './components/test/test.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatAutocompleteModule
+
   ],
+  // exports: [
+  //   MatAutocompleteModule
+  // ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -9,67 +9,35 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class TestComponent implements OnInit {
 
   form!: FormGroup;
-  result: any;
+  
+  options = ["Istanbul","Izmir", "sivas","ankara","mardin"];
 
+  filteredOptions = [""];
   constructor(
     private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.creatForm();
+    this.initForm();
   }
 
-  creatForm() {
-    this.form = this.fb.group(
-      {
-        fName: [null],
-        lName: [null],
-        addresses: this.addressForm(),
-        contacts: this.fb.array([this.contactFrom()])
+  initForm(){
+    this.form = this.fb.group({
+      'employee': ['']
+    });
+    this.form.get('employee')?.valueChanges.subscribe(
+      response => {
+        console.log('data is ', response);
+        this.filterData(response);
       }
     );
   }
 
-  addressForm() {
-    return this.fb.group(
-      {
-        address1: [null],
-        address2: [null],
-        country: [null],
-        state: [null]
-      }
-    )
-  }
-
-  get addresses() {
-    return this.form.get("addresses") as FormGroup;
-  }
-
-
-  get contacts() {
-    return this.form.get("contacts") as FormArray;
-  }
-
-  contactFrom() {
-    return this.fb.group(
-      {
-        phone: [null],
-        email: [null]
+  filterData(entered:any){
+    this.filteredOptions = this.options.filter(
+      item => {
+        return item.toLowerCase().indexOf(entered.toLowerCase()) > -1;
       }
     );
   }
-
-  onSave() {
-    console.log(this.form.getRawValue())
-    
-  }
-
-  addNewContacts() {
-    this.contacts.push(this.contactFrom());
-  }
-
-  removeContact(i: Required<number>) {
-    this.contacts.removeAt(i);
-  }
-
 }
