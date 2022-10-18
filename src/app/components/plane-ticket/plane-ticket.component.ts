@@ -5,6 +5,8 @@ import { PlaneTicketService } from 'src/app/services/planeTicket.service';
 import { FlightDto } from 'src/app/models/flightDto';
 import { PlaneService } from 'src/app/services/plane.service';
 import { Plane } from 'src/app/models/plane';
+import { ElasticService } from 'src/app/services/elastic.service';
+import { City } from 'src/app/models/cityModel';
 
 @Component({
   selector: 'app-plane-ticket',
@@ -15,19 +17,24 @@ export class PlaneTicketComponent implements OnInit {
   planeTicketForm!: FormGroup;
 
   array: Flight[] = [];
-
-  liste: string[] = ["Ankara","Antalya","Anıtkabir","Aksaray","Anamur"];
+  options = ["izmir","istanbul"];
+  filteredFromOptions = [""];
+  filteredToOptions = [""];
+  mymodel = "";
 
 
   constructor(
     private formBuilder: FormBuilder,
     private service: PlaneTicketService,
-    private planeSevice: PlaneService
+    private planeSevice: PlaneService,
+    private _service: ElasticService
   ) { }
 
   ngOnInit(): void {
     this.createForm();
   }
+
+  
 
   createForm(){
     this.planeTicketForm = this.formBuilder.group({
@@ -37,22 +44,35 @@ export class PlaneTicketComponent implements OnInit {
       "people": ['', [Validators.required]],
       "seat": ['', [Validators.required]],
     });
+
+    this.planeTicketForm.get('departurePoint')?.valueChanges.subscribe(
+      response => {
+        this.filterData(response);
+      }
+    );
+
+    this.planeTicketForm.get('destination')?.valueChanges.subscribe(
+      response => {
+        this.filterDataTo(response);
+      }
+    );
   }
 
-  test(){
-    const f: Flight = {};
-    f.id = 2;
-    f.departurePoint = 'konya';
-    f.destination = 'sivas';
-    f.departureTime = new Date();
-    
-    const p: Plane = {};
-    p.brandName = 'Türk hava yolları'
-    p.brandImage = 'https://www.turizmgunlugu.com/wp-content/uploads/2020/10/THY-Tu%CC%88rk-Hava-Yollari-Turkish-Airlines-696x398.jpg';
-    f.plane = p;
-    this.array.push(f);
+  filterData(entered: string){
+    this.filteredFromOptions = this.options.filter(
+      item => {
+        return item.toLowerCase().indexOf(entered.toLowerCase()) > -1;
+      }
+    );
   }
 
+  filterDataTo(entered: any){
+    this.filteredToOptions = this.options.filter(
+      item => {
+        return item.toLowerCase().indexOf(entered.toLowerCase()) > -1;
+      }
+    );
+  }
 
   searchFlight = async() => { 
     const flight: FlightDto = {};
@@ -109,6 +129,28 @@ export class PlaneTicketComponent implements OnInit {
       }
     });
     this.array = liste;
+  }
+
+  valuechange =  async (newValue:string) => {
+    this.mymodel = newValue;
+    console.log(newValue);
+    this.getCities(newValue);
+  }
+
+  getCities = async (p: string) => {
+    const temp: string[] = [];
+    await this._service.getCity(p).then(
+      response => {
+        if(response?.success){
+          this.options = [];
+          response.data.forEach(function (item:City) {
+            temp.push(item.name);
+          });
+          console.log(response.data);
+        }
+      }
+    );
+    this.options = temp;
   }
 
 }

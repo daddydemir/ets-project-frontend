@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ElasticService } from 'src/app/services/elastic.service';
 
 @Component({
   selector: 'app-test',
@@ -14,7 +15,8 @@ export class TestComponent implements OnInit {
 
   filteredOptions = [""];
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private service: ElasticService
   ) { }
 
   ngOnInit(): void {

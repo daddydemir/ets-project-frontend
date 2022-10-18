@@ -3,4 +3,7 @@ export interface ReservationAdd{
     hotelId: number;
     startDate: Date;
     endDate: Date;
+
+    price?: number;
+    id?:number;
 }

@@ -18,10 +18,10 @@ export class OtelDetailComponent implements OnInit {
 
   id?: number;
   hotel?: Hotel;
-
   form!: FormGroup;
+  day: number = 1;
 
-  personSize: number = 1;
+  last_day!: Date;
   
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,10 +37,25 @@ export class OtelDetailComponent implements OnInit {
     );
 
     this.form = this.formBuilder.group({
-      persons: this.formBuilder.array([this.personForm()]),
+      "startDate": ['', [Validators.required]],
+      "endDate": ['', [Validators.required]],
     });
 
     this.init();
+
+  }
+
+  _change(d: Date){
+
+    this.day = 1; 
+    // const time: Date = this.form.get('endDate') || new Date();
+    const firstDay: Date = new Date(this.form.value['startDate']);
+    const lastDay: Date = new Date(this.form.value['endDate']);
+    this.day = lastDay.getDate() - firstDay.getDate();
+
+    if(!this.form.valid){
+      this.day = 1;
+    }
   }
 
   init = async () => {
@@ -55,29 +70,6 @@ export class OtelDetailComponent implements OnInit {
     );
   } 
 
-  personForm(){
-    return this.formBuilder.group({
-      "name": ['', [Validators.required]],
-      "surname": ['', [Validators.required]],
-      "gender": ['', [Validators.required]],
-      "email": ['', [Validators.required]],
-      "identityNo": ['', [Validators.required]],
-    });
-  }
-
-  get persons(){
-    return this.form.get("persons") as FormArray;
-  }
-
-  addNewPersons(){
-    this.personSize += 1; 
-    this.persons.push(this.personForm());
-  }
-
-  removeLastPersons(){
-    this.personSize -= 1;
-    this.persons.removeAt(this.persons.length - 1);
-  }
 
   send(){
     console.log(this.form.value);
@@ -86,10 +78,18 @@ export class OtelDetailComponent implements OnInit {
 
     model.customerId = Number(localStorage.getItem('customerId'));
     model.hotelId = this.id || -1;
+
+    console.log(model);
     
-    this.service.search(model).then(
+    this.service.addReservation(model).then(
       item => {
-        console.log(item?.data);
+        if(item?.success){
+          alert(item.message);
+          window.location.href = "/my-reservations";
+        }else{
+          console.log(item);
+        }
+        console.log(item);
       }
     );
   }

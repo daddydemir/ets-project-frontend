@@ -7,12 +7,22 @@
         <div class="row">
             <div class="col-md-2">
                 <label> From: </label>
-                <input type="text" class="form-control" formControlName="departurePoint" autocomplete="on">
+                <input type="text" class="form-control" formControlName="departurePoint" [matAutocomplete]="auto" [ngModel]="mymodel" (ngModelChange)="valuechange($event)">
+                <mat-autocomplete #auto=matAutocomplete class="form-control">
+                    <mat-option *ngFor="let item of filteredFromOptions" [value]="item" class="form-control">
+                        {{ item }}
+                    </mat-option>
+                </mat-autocomplete>
             </div>
 
             <div class="col-md-2">
                 <label> To:</label>
-                <input type="text" class="form-control" formControlName="destination">
+                <input type="text" class="form-control" formControlName="destination" [matAutocomplete]="tauto">
+                <mat-autocomplete #tauto="matAutocomplete">
+                    <mat-option *ngFor="let item of filteredToOptions" [value]="item" class="form-control">
+                        {{ item }}
+                    </mat-option>
+                </mat-autocomplete>
             </div>
             <div class="col-md-2">
                 <label> Date:</label>

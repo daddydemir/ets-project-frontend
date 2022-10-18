@@ -19,6 +19,7 @@ import { TestComponent } from './components/test/test.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyReservationsComponent } from './components/my-reservations/my-reservations.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MyTicketsComponent,
     OtelDetailComponent,
     TestComponent,
+    MyReservationsComponent,
   ],
   imports: [
     BrowserModule,

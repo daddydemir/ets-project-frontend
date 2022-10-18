@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FlightDetailComponent } from './components/flight-detail/flight-detail.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { MyReservationsComponent } from './components/my-reservations/my-reservations.component';
 import { MyTicketsComponent } from './components/my-tickets/my-tickets.component';
 import { OtelDetailComponent } from './components/otel-detail/otel-detail.component';
 import { OtelReservationComponent } from './components/otel-reservation/otel-reservation.component';
@@ -55,6 +56,11 @@ const routes: Routes = [
     path: 'test',
     pathMatch: 'full',
     component: TestComponent,
+  },
+  {
+    path: 'my-reservations',
+    pathMatch: 'full',
+    component: MyReservationsComponent
   }
 ];
 
