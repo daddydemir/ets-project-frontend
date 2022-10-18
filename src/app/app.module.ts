@@ -20,6 +20,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyReservationsComponent } from './components/my-reservations/my-reservations.component';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { SessionHistoryComponent } from './components/session-history/session-history.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { MyReservationsComponent } from './components/my-reservations/my-reserva
     OtelDetailComponent,
     TestComponent,
     MyReservationsComponent,
+    MyProfileComponent,
+    SessionHistoryComponent,
   ],
   imports: [
     BrowserModule,

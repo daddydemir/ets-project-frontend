@@ -1,0 +1,25 @@
+<div class="container">
+    <h2> Oturum geçmişi </h2>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col"> Login Date </th>
+                    <th scope="col"> Time </th>
+                    <th scope="col"> Token </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i of liste">
+                    <th scope="row"> {{i.dateOfImport | date}} </th>
+                    <th scope="row"> {{i.dateOfImport | date: "hh:mm"}} </th>
+                    <th scope="row" ng-init="limit = 100;"> {{ i.token | slice: 0:80}} ...  </th>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

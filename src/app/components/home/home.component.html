@@ -15,6 +15,10 @@
                 </li>
             </ul>
         </div>
+
+        <div style="margin:10px;">
+            <a href="my-profile" class="nav-link"> My Profile </a>  
+        </div>
         <div *ngIf="isAuth; else content" class="row">
             <div class="flex-shrink-0">
                 <img src="{{ customer.profileImage}}" alt="Generic placeholder image"

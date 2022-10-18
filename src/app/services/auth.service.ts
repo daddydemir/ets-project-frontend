@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginDto } from './../models/login';
 import { Observable } from 'rxjs';
 import { RegisterDto } from '../models/register';
 import { SingleResponseModel } from '../models/singleResponseModel';
 import { Customer } from '../models/customer';
+import { ListResponseModel } from '../models/listResponseModel';
+import { History } from '../models/history';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +45,23 @@ export class AuthService {
   getCustomerById(id: string){
 
     return this.httpClient.get<SingleResponseModel<Customer>>("http://localhost:8080/api/customers/"+id).toPromise();
+  }
+
+  loginHistory(id:string){
+
+    const token: string = localStorage.getItem('token') || "";
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.httpClient.get<ListResponseModel<History>>(
+      "http://localhost:8080/api/authentications/"+id,
+      httpOptions
+    ).toPromise();
   }
 
 }
