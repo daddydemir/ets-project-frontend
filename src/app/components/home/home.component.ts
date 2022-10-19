@@ -36,4 +36,9 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  logout () {
+    localStorage.clear();
+    this.isAuth = false;
+  }
+
 }

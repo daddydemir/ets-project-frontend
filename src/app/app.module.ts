@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyReservationsComponent } from './components/my-reservations/my-reservations.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { SessionHistoryComponent } from './components/session-history/session-history.component';
+import { UpdatePhotoComponent } from './components/update-photo/update-photo.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { SessionHistoryComponent } from './components/session-history/session-hi
     MyReservationsComponent,
     MyProfileComponent,
     SessionHistoryComponent,
+    UpdatePhotoComponent,
   ],
   imports: [
     BrowserModule,

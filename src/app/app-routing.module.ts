@@ -12,6 +12,7 @@ import { PlaneTicketComponent } from './components/plane-ticket/plane-ticket.com
 import { RegisterComponent } from './components/register/register.component';
 import { SessionHistoryComponent } from './components/session-history/session-history.component';
 import { TestComponent } from './components/test/test.component';
+import { UpdatePhotoComponent } from './components/update-photo/update-photo.component';
 
 const routes: Routes = [
   {
@@ -73,6 +74,11 @@ const routes: Routes = [
     path: 'authentication-history',
     pathMatch: 'full',
     component: SessionHistoryComponent
+  },
+  {
+    path: 'update-photo',
+    pathMatch: 'full',
+    component: UpdatePhotoComponent
   }
 ];
 

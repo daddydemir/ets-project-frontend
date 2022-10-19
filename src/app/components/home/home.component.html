@@ -16,13 +16,18 @@
             </ul>
         </div>
 
-        <div style="margin:10px;">
+        <div style="margin:10px;" *ngIf="isAuth">
             <a href="my-profile" class="nav-link"> My Profile </a>  
         </div>
         <div *ngIf="isAuth; else content" class="row">
-            <div class="flex-shrink-0">
-                <img src="{{ customer.profileImage}}" alt="Generic placeholder image"
-                    class="img-fluid rounded-circle border border-dark border-3" style="width: 70px;">
+            <div class="row">
+                <div class="flex-shrink-0 col-md-7">
+                    <img src="{{ customer.profileImage}}"
+                        class="img-fluid rounded-circle border border-dark border-2" style="width: 70px; height: 50px;">
+                </div>
+                <button type="button" class="btn btn-outline-danger waves-effect px-3 col-md-5" (click)="logout()">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
             </div>
         </div>
         <ng-template #content>

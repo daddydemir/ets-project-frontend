@@ -24,4 +24,8 @@ export class MyProfileComponent implements OnInit {
   ticket(){
     window.location.href = "my-tickets";
   }
+
+  photo(){
+    window.location.href = "update-photo";
+  }
 }
